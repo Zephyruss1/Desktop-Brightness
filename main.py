@@ -1,8 +1,8 @@
-# This project is created for adjust brighness. 
-# This code can runable only with WINDOWS (PC).
-# And this file is source code of project.
-# AUTHOR: Zephyrus
-# Datetime: 2023 Q4 - Release 1.0.1 
+"""
+INTRODUCTION: This project is created for adjust brighness.This code can runable only with WINDOWS (PC) and this file is source code of project.
+AUTHOR: Zephyrus
+Date and time: 2023 Q4 - Release 1.0.1 
+"""
 import os
 import winreg
 from configparser import ConfigParser
