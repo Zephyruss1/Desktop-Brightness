@@ -4,9 +4,15 @@
 A basic desktop brightness with a Python.
 
 
+## 🔍 Acknowledgements
+
+ - Check **requirements.txt** for ompatibility of framework versions
+
+
+
 ## 📄 License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](https://github.com/Zephyruss1/Desktop-Brightness/blob/main/LICENSE)
 
 
 ## 🧙🏼 Authors
