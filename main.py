@@ -21,10 +21,6 @@ class DesktopBrightnessApp:
         self.config = ConfigParser()
         self.config.read('options.ini')
 
-        self.img = PIL.Image.open(
-            r'C:\Users\user\OneDrive\Desktop\Python_simple_projects\Desktop_brightness_app\icon.ico') # Your img path here.
-        self.root.iconbitmap(r'C:\Users\user\OneDrive\Desktop\Python_simple_projects\Desktop_brightness_app\icon.ico') # Your icon img path here.
-
         # Window initialization
         self.screen_width = self.root.winfo_screenwidth()
         self.screen_height = self.root.winfo_screenheight()
