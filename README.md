@@ -6,7 +6,7 @@ A basic desktop brightness with a Python.
 
 ## 🔍 Acknowledgements
 
- - Check **requirements.txt** for ompatibility of framework versions
+ - Check **requirements.txt** for compatibility of framework versions
 
 
 
