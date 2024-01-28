@@ -1,5 +1,5 @@
 
-# 💡 Desktop Brightness App 💡
+# 💡 Adjust Desktop Brightness 💡
 
 A basic desktop brightness with a Python.
 
