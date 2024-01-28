@@ -12,7 +12,7 @@ import pystray
 import screen_brightness_control as sbc
 import ttkbootstrap as tb
 import ttkbootstrap as ttk
-
+# DEV BRANCH
 class DesktopBrightnessApp:
 
     def __init__(self):
