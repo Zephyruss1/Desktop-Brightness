@@ -1,0 +1,5 @@
+# Ignore ini file
+*.ini
+
+# Ignore icon file
+*.ico

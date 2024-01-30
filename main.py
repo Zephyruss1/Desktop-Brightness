@@ -11,7 +11,6 @@ import PIL.Image
 import pystray
 import screen_brightness_control as sbc
 import ttkbootstrap as tb
-import ttkbootstrap as ttk
 
 class DesktopBrightnessApp:
 
@@ -22,8 +21,8 @@ class DesktopBrightnessApp:
         self.config.read('options.ini')
 
         self.img = PIL.Image.open(
-            r'C:\Users\user\OneDrive\Desktop\Python_simple_projects\Desktop_brightness_app\icon.ico') # Your img path here.
-        self.root.iconbitmap(r'C:\Users\user\OneDrive\Desktop\Python_simple_projects\Desktop_brightness_app\icon.ico') # Your icon img path here.
+            r'C:\Users\ekber\OneDrive\Masaüstü\Desktop_brightness_app_github\light.ico') # Your img path here.
+        self.root.iconbitmap(r'C:\Users\ekber\OneDrive\Masaüstü\Desktop_brightness_app_github\light.ico') # Your icon img path here.
 
         # Window initialization
         self.screen_width = self.root.winfo_screenwidth()
@@ -77,7 +76,7 @@ class DesktopBrightnessApp:
 
         self.get_monitors()
         self.theme_list = self.root.style.theme_names()
-        self.themes = ttk.StringVar(value=self.root.style.theme_use())
+        self.themes = tb.StringVar(value=self.root.style.theme_use())
         self.c_box = tb.Combobox(self.root, values=self.theme_list, state="readonly", width=15)
         self.c_box.place(x=0, y=0)
         self.c_box.bind("<<ComboboxSelected>>", self.change_theme)
