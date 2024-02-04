@@ -1,12 +1,15 @@
 
-# 💡 Adjust Desktop Brightness 💡
+# 💡 Desktop Brightness App 💡
 
 A basic desktop brightness with a Python.
 
 
+## App Version
+
+Also you can download app version(.exe) from releases
 ## 🔍 Acknowledgements
 
- - Check **requirements.txt** for compatibility of framework versions
+ - Check **requirements.txt** for ompatibility of framework versions
 
 
 
