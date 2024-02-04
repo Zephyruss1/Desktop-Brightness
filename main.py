@@ -1,5 +1,5 @@
 """
-INTRODUCTION: This project is created for adjust brighness.This code can runable only with WINDOWS (PC) and this file is source code of project.
+INTRODUCTION: This project is created for adjust brightness.This code can run able only with WINDOWS (PC) and this file is source code of project.
 AUTHOR: Zephyrus
 Date and time: 2023 Q4 - Release 1.0.1 
 """
@@ -12,6 +12,7 @@ import pystray
 import screen_brightness_control as sbc
 import ttkbootstrap as tb
 
+
 class DesktopBrightnessApp:
 
     def __init__(self):
@@ -21,8 +22,9 @@ class DesktopBrightnessApp:
         self.config.read('options.ini')
 
         self.img = PIL.Image.open(
-            r'C:\Users\ekber\OneDrive\Masaüstü\Desktop_brightness_app_github\light.ico') # Your img path here.
-        self.root.iconbitmap(r'C:\Users\ekber\OneDrive\Masaüstü\Desktop_brightness_app_github\light.ico') # Your icon img path here.
+            r'C:\Users\ekber\OneDrive\Masaüstü\Desktop_brightness_app_github\light.ico')  # Your img path here.
+        self.root.iconbitmap(
+            r'C:\Users\ekber\OneDrive\Masaüstü\Desktop_brightness_app_github\light.ico')  # Your icon img path here.
 
         # Window initialization
         self.screen_width = self.root.winfo_screenwidth()
@@ -31,8 +33,7 @@ class DesktopBrightnessApp:
         self.y = (self.screen_height / 2) - (250 / 2)
         self.root.geometry('%dx%d+%d+%d' % (500, 250, self.x, self.y))
         self.root.title("Desktop Brightness App")
-        
-        
+
         get_monitor = sbc.list_monitors()
         self.label_main_name = tb.Label(self.root, text=get_monitor[0], font=("Arial bold", 13))
         self.label_main_name.pack(pady=30)
@@ -134,7 +135,7 @@ class DesktopBrightnessApp:
             self.c_box_monitor = tb.Combobox(self.root, values=self.monitors, state="readonly", width=15)
             self.c_box_monitor.place(x=383, y=0)
             self.c_box_monitor.bind("<<ComboboxSelected>>", self.set_brightness_for_selected_monitor)
-        
+
     # Checking for send notify if there not selected any monitor.
     def check_c_box(self):
         selected_monitor = c_box_monitor.current()
@@ -149,7 +150,7 @@ class DesktopBrightnessApp:
         if hasattr(self, 'c_box_monitor'):
             selected_monitor = self.c_box_monitor.get()
             self.label_main_name.config(text=selected_monitor)
-            
+
         else:
             self.label_brightness.config(text=f"Brightness: {int(self.scale_1.get())}")
             val = int(self.scale_1.get())
@@ -254,4 +255,3 @@ class DesktopBrightnessApp:
 if __name__ == "__main__":
     app = DesktopBrightnessApp()
     app.run_script()
-    
