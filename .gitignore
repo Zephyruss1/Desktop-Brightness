@@ -3,3 +3,9 @@
 
 # Ignore icon file
 *.ico
+
+# Dev py file
+dev.py
+
+# Output test file
+output/
