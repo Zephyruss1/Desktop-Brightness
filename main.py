@@ -187,7 +187,7 @@ class DesktopBrightnessApp:
 
         # If there not options file and options features set default settings.
         if not os.path.exists('options.ini') or 'GENERAL SETTINGS' and 'MONITOR SETTINGS' not in self.config:
-            messagebox.showinfo("Desktop Brightness App", "Hello, thanks to for choose us.")
+            messagebox.showinfo("Desktop Brightness App", "Hello, thanks to choosing me :)")
             self.config['GENERAL SETTINGS'] = {
                 'theme': 'darkly',
                 'start app on windows': str(False)
