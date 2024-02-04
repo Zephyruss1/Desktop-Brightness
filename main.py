@@ -9,8 +9,10 @@ from configparser import ConfigParser
 from tkinter import messagebox
 import PIL.Image
 import pystray
+from pystray import MenuItem as item
 import screen_brightness_control as sbc
 import ttkbootstrap as tb
+import time
 
 
 class DesktopBrightnessApp:
@@ -42,6 +44,7 @@ class DesktopBrightnessApp:
 
         self.check_var = tb.BooleanVar()
         self.checkbutton_start_app = tb.Checkbutton(self.root, bootstyle="round-toggle", variable=self.check_var,
+
                                                     command=self.checkbutton_startup_info_msg)
         self.checkbutton_start_app.place(x=465, y=230)
 
@@ -126,7 +129,7 @@ class DesktopBrightnessApp:
 
     # Disable maximize of window.
     def maximize_disabled(self):
-        self.root.resizable(0, 0)
+        self.root.resizable(0, 0)  # type: ignore
 
     def get_monitors(self):
         global c_box_monitor
@@ -236,6 +239,8 @@ class DesktopBrightnessApp:
         if str(item) == "Open GUI":
             self.icon.stop()
             self.root.deiconify()
+            self.root.attributes('-topmost', True)
+            self.root.lift()
         elif str(item) == "Exit":
             self.icon.stop()
             self.root.destroy()
