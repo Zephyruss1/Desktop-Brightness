@@ -15,7 +15,7 @@
 
 ## 📄 License
 
-[MIT](https://github.com/Zephyruss1/Desktop-Brightness/blob/main/LICENSE)
+- [MIT](https://github.com/Zephyruss1/Desktop-Brightness/blob/main/LICENSE)
 
 
 ## 🧙🏼 Authors
