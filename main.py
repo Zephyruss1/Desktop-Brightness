@@ -6,7 +6,7 @@ Date and time: 2024 Q1 - Release 1.0.2
 import os
 from configparser import ConfigParser
 from tkinter import messagebox
-import PIL.Image
+from PIL import Image
 import pystray
 import screen_brightness_control as sbc
 import ttkbootstrap as tb
@@ -20,7 +20,7 @@ class DesktopBrightnessApp:
         self.config = ConfigParser()
         self.config.read('options.ini')
 
-        self.img = PIL.Image.open(
+        self.img = Image.open(
             r'C:\Users\ekber\OneDrive\Masaüstü\Desktop_brightness_app_github\light.ico')  # Your img path here.
         self.root.iconbitmap(
             r'C:\Users\ekber\OneDrive\Masaüstü\Desktop_brightness_app_github\light.ico')  # Your icon img path here.
@@ -186,7 +186,6 @@ class DesktopBrightnessApp:
         self.maximize_disabled()
         self.load_last_settings()
         self.root.mainloop()
-
 
 
 if __name__ == "__main__":
