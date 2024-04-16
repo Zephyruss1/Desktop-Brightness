@@ -10,6 +10,7 @@
 ## 🔍 Acknowledgements
 
  - Check **requirements.txt** for compatibility of framework versions
+ 
  - A screenshot from app:
 ![Screenshot](https://github.com/Zephyruss1/Desktop-Brightness-App/assets/92221043/52db6edc-3e7e-4a8b-aa2a-9547996b3d52)
 
