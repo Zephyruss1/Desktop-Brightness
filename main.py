@@ -21,9 +21,9 @@ class DesktopBrightnessApp:
         self.config.read('options.ini')
 
         self.img = Image.open(
-            r'C:\Users\ekber\OneDrive\Masaüstü\Desktop_brightness_app_github\light.ico')  # Your img path here.
+            r'C:\Users\ekber\OneDrive\Masaüstü\Desktop-Brightness-App\light.ico')  # Your img path here.
         self.root.iconbitmap(
-            r'C:\Users\ekber\OneDrive\Masaüstü\Desktop_brightness_app_github\light.ico')  # Your icon img path here.
+            r'C:\Users\ekber\OneDrive\Masaüstü\Desktop-Brightness-App\light.ico')  # Your icon img path here.
 
         # Window initialization
         self.screen_width = self.root.winfo_screenwidth()
@@ -103,10 +103,17 @@ class DesktopBrightnessApp:
             selected_monitor = self.c_box_monitor.get()
             self.label_main_name.config(text=selected_monitor)
 
-        else:
+        if not selected_monitor:
+            sbc.set_brightness(int(self.scale_1.get()))
             self.label_brightness.config(text=f"Brightness: {int(self.scale_1.get())}")
+            self.config['MONITOR SETTINGS']['brightness'] = str(self.scale_1.get())
+        
+        else:
             val = int(self.scale_1.get())
-            sbc.set_brightness(val)
+            self.label_brightness.config(text=f"Brightness: {val}")
+
+            # Set brightness for the selected monitor
+            sbc.set_brightness(val, display=selected_monitor)
             self.config['MONITOR SETTINGS']['brightness'] = str(val)
 
         with open('options.ini', 'w') as configfile:
