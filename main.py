@@ -104,17 +104,16 @@ class DesktopBrightnessApp:
             self.label_main_name.config(text=selected_monitor)
 
         if not selected_monitor:
-            sbc.set_brightness(int(self.scale_1.get()))
-            self.label_brightness.config(text=f"Brightness: {int(self.scale_1.get())}")
-            self.config['MONITOR SETTINGS']['brightness'] = str(self.scale_1.get())
+            self.scale_1.config(state="disabled", takefocus=False)
         
         else:
-            val = int(self.scale_1.get())
+            self.scale_1.config(state="normal", takefocus=True)
+            val = self.scale_1.get()
             self.label_brightness.config(text=f"Brightness: {val}")
-
+        
             # Set brightness for the selected monitor
             sbc.set_brightness(val, display=selected_monitor)
-            self.config['MONITOR SETTINGS']['brightness'] = str(val)
+            self.config['MONITOR SETTINGS']['brightness'] = str(int(val))
 
         with open('options.ini', 'w') as configfile:
             self.config.write(configfile)
@@ -126,11 +125,9 @@ class DesktopBrightnessApp:
         with open('options.ini', 'w') as configfile:
             self.config.write(configfile)
 
-    # Load user last settings.
     def load_last_settings(self):
-
-        # If there not options file and options features set default settings.
-        if not os.path.exists('options.ini') or 'GENERAL SETTINGS' and 'MONITOR SETTINGS' not in self.config:
+        # If there is no options file and options features, set default settings.
+        if not os.path.exists('options.ini') or 'GENERAL SETTINGS' not in self.config or 'MONITOR SETTINGS' not in self.config:
             messagebox.showinfo("Desktop Brightness App", "Hello, Welcome to Adjust Screen Brightness App")
             self.config['GENERAL SETTINGS'] = {
                 'theme': 'darkly',
@@ -140,38 +137,46 @@ class DesktopBrightnessApp:
             }
             with open('options.ini', 'w') as configfile:
                 self.config.write(configfile)
-
-        monitors = sbc.list_monitors()
-        brightness = self.config['MONITOR SETTINGS'].getint('brightness')
-        monitor = self.config['MONITOR SETTINGS'].get('monitor')
-        theme = self.config['GENERAL SETTINGS'].get('theme')
-        self.scale_1.set(brightness)
-        self.root.style.theme_use(theme)
-
-        # Settings for one monitor.
-        if len(monitors) == 1:
-            if theme != self.config['GENERAL SETTINGS']['theme'] and brightness != self.config[
-                'MONITOR SETTINGS'].getint(
-                'brightness'):
-                print("Settings not successfully loaded")
-
-            else:
+        
+        # Debugging output
+        print("Configuration sections:", self.config.sections())
+        
+        if 'GENERAL SETTINGS' in self.config and 'MONITOR SETTINGS' in self.config:
+            try:
+                monitors = sbc.list_monitors()
+                
+                # Reading the brightness value and converting it to an integer
+                brightness_str = self.config['MONITOR SETTINGS'].get('brightness')
+                brightness = int(float(brightness_str))  # Ensure brightness is an integer
+                
+                monitor = self.config['MONITOR SETTINGS'].get('monitor')
+                theme = self.config['GENERAL SETTINGS'].get('theme')
                 self.scale_1.set(brightness)
                 self.root.style.theme_use(theme)
-                print("Settings successfully loaded")
+    
+                # Settings for one monitor.
+                if len(monitors) == 1:
+                    if theme != self.config['GENERAL SETTINGS']['theme'] or brightness != int(float(self.config['MONITOR SETTINGS'].get('brightness'))):
+                        print("Settings not successfully loaded")
+                    else:
+                        self.scale_1.set(brightness)
+                        self.root.style.theme_use(theme)
+                        print("Settings successfully loaded")
+    
+                # Settings for two and more monitors.
+                elif len(monitors) >= 2:
+                    if theme != self.config['GENERAL SETTINGS']['theme'] or brightness != int(float(self.config['MONITOR SETTINGS'].get('brightness'))) or monitor != self.config['MONITOR SETTINGS'].get('monitor'):
+                        print("Settings not successfully loaded")
+                    else:
+                        self.scale_1.set(brightness)
+                        self.root.style.theme_use(theme)
+                        print("Settings successfully loaded")
+            except Exception as e:
+                print(f"Error loading settings: {e}")
+                messagebox.showerror("Error", f"Error loading settings: {e}")
+        else:
+            print("Configuration sections 'GENERAL SETTINGS' or 'MONITOR SETTINGS' not found")
 
-        # Settings for two and more monitors.
-        elif len(monitors) >= 2:
-            if theme != self.config['GENERAL SETTINGS']['theme'] and brightness != self.config[
-                'MONITOR SETTINGS'].getint(
-                'brightness') \
-                    and monitor != self.config['MONITOR SETTINGS'].get('monitor'):
-                print("Settings not successfully loaded")
-
-            else:
-                self.scale_1.set(brightness)
-                self.root.style.theme_use(theme)
-                print("Settings successfully loaded")
 
     def on_move_clicked(self, icon, item):
         if str(item) == "Open GUI":
