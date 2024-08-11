@@ -1,7 +1,7 @@
 """
 INTRODUCTION: This project is created for adjust brightness. This file is source code of project.
 AUTHOR: Zephyrus
-Date and time: 2024 Q1 - Release 1.0.2
+Date and time: 2024 Q3 - Release 1.0.3
 """
 import os
 from configparser import ConfigParser
@@ -109,7 +109,7 @@ class DesktopBrightnessApp:
         else:
             self.scale_1.config(state="normal", takefocus=True)
             val = self.scale_1.get()
-            self.label_brightness.config(text=f"Brightness: {val}")
+            self.label_brightness.config(text=f"Brightness: {int(val)}")
         
             # Set brightness for the selected monitor
             sbc.set_brightness(val, display=selected_monitor)
