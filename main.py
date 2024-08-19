@@ -1,7 +1,9 @@
 """
-INTRODUCTION: This project is created for adjust brightness. This file is source code of project.
-AUTHOR: Zephyrus
-Date and time: 2024 Q3 - Release 1.0.3
+--------------------------------------------------------------------------------------------------
+INTRODUCTION: This project is created for adjust brightness. This file is source code of project.|
+AUTHOR: Zephyrus                                                                                 |
+Date and time: 2024 Q3 - Release 1.0.3                                                           |
+--------------------------------------------------------------------------------------------------
 """
 import os
 from configparser import ConfigParser
@@ -34,7 +36,7 @@ class DesktopBrightnessApp:
         self.root.title("Desktop Brightness App")
 
         get_monitor = sbc.list_monitors()
-        self.label_main_name = tb.Label(self.root, text=get_monitor[0], font=("Arial bold", 13))
+        self.label_main_name = tb.Label(self.root, text="General", font=("Arial bold", 13))
         self.label_main_name.pack(pady=30)
 
         self.checkbutton_label = tb.Label(self.root)
@@ -84,8 +86,10 @@ class DesktopBrightnessApp:
         global c_box_monitor
         self.monitors = sbc.list_monitors()
         if len(self.monitors) >= 2:
+            self.monitors.insert(0, "General")
             self.c_box_monitor = tb.Combobox(self.root, values=self.monitors, state="readonly", width=15)
             self.c_box_monitor.place(x=383, y=0)
+            self.c_box_monitor.set(self.monitors[0])
             self.c_box_monitor.bind("<<ComboboxSelected>>", self.set_brightness_for_selected_monitor)
 
     # Checking for send notify if there not selected any monitor.
@@ -98,22 +102,27 @@ class DesktopBrightnessApp:
 
     def set_brightness_for_selected_monitor(self, event):
         self.monitors = sbc.list_monitors()
-
+        # Configure label for selected value
         if hasattr(self, 'c_box_monitor'):
             selected_monitor = self.c_box_monitor.get()
             self.label_main_name.config(text=selected_monitor)
-
-        if not selected_monitor:
-            self.scale_1.config(state="disabled", takefocus=False)
-        
+                
+            self.scale_1.config(state="normal", takefocus=True)
+            val = self.scale_1.get()
         else:
             self.scale_1.config(state="normal", takefocus=True)
             val = self.scale_1.get()
             self.label_brightness.config(text=f"Brightness: {int(val)}")
-        
+            sbc.set_brightness(val)
+
+        if selected_monitor == "General":
+            self.label_brightness.config(text=f"Brightness: {int(val)}")
+            sbc.set_brightness(val)
+        else:
+            self.label_brightness.config(text=f"Brightness: {int(val)}")
             # Set brightness for the selected monitor
             sbc.set_brightness(val, display=selected_monitor)
-            self.config['MONITOR SETTINGS']['brightness'] = str(int(val))
+        self.config['MONITOR SETTINGS'][selected_monitor] = str(int(val))
 
         with open('options.ini', 'w') as configfile:
             self.config.write(configfile)
@@ -133,7 +142,7 @@ class DesktopBrightnessApp:
                 'theme': 'darkly',
             }
             self.config['MONITOR SETTINGS'] = {
-                'brightness': '50'
+                'general': 100
             }
             with open('options.ini', 'w') as configfile:
                 self.config.write(configfile)
@@ -144,9 +153,9 @@ class DesktopBrightnessApp:
         if 'GENERAL SETTINGS' in self.config and 'MONITOR SETTINGS' in self.config:
             try:
                 monitors = sbc.list_monitors()
-                
+
                 # Reading the brightness value and converting it to an integer
-                brightness_str = self.config['MONITOR SETTINGS'].get('brightness')
+                brightness_str = self.config['MONITOR SETTINGS'].get(monitors[0])
                 brightness = int(float(brightness_str))  # Ensure brightness is an integer
                 
                 monitor = self.config['MONITOR SETTINGS'].get('monitor')
@@ -156,7 +165,7 @@ class DesktopBrightnessApp:
     
                 # Settings for one monitor.
                 if len(monitors) == 1:
-                    if theme != self.config['GENERAL SETTINGS']['theme'] or brightness != int(float(self.config['MONITOR SETTINGS'].get('brightness'))):
+                    if theme != self.config['GENERAL SETTINGS']['theme'] or brightness != int(float(self.config['MONITOR SETTINGS'].get(monitors[0]))):
                         print("Settings not successfully loaded")
                     else:
                         self.scale_1.set(brightness)
@@ -165,7 +174,7 @@ class DesktopBrightnessApp:
     
                 # Settings for two and more monitors.
                 elif len(monitors) >= 2:
-                    if theme != self.config['GENERAL SETTINGS']['theme'] or brightness != int(float(self.config['MONITOR SETTINGS'].get('brightness'))) or monitor != self.config['MONITOR SETTINGS'].get('monitor'):
+                    if theme != self.config['GENERAL SETTINGS']['theme'] or brightness != int(float(self.config['MONITOR SETTINGS'].get(monitors[0]))) or monitor != self.config['MONITOR SETTINGS'].get('monitor'):
                         print("Settings not successfully loaded")
                     else:
                         self.scale_1.set(brightness)
