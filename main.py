@@ -153,19 +153,19 @@ class DesktopBrightnessApp:
         if 'GENERAL SETTINGS' in self.config and 'MONITOR SETTINGS' in self.config:
             try:
                 monitors = sbc.list_monitors()
-
+    
                 # Reading the brightness value and converting it to an integer
-                brightness_str = self.config['MONITOR SETTINGS'].get(monitors[0])
+                brightness_str = self.config['MONITOR SETTINGS'].get(monitors[0], '100')  # Default to '100' if not found
                 brightness = int(float(brightness_str))  # Ensure brightness is an integer
                 
-                monitor = self.config['MONITOR SETTINGS'].get('monitor')
-                theme = self.config['GENERAL SETTINGS'].get('theme')
+                monitor = self.config['MONITOR SETTINGS'].get('monitor', monitors[0])  # Default to the first monitor if not found
+                theme = self.config['GENERAL SETTINGS'].get('theme', 'darkly')  # Default to 'darkly' if not found
                 self.scale_1.set(brightness)
                 self.root.style.theme_use(theme)
     
                 # Settings for one monitor.
                 if len(monitors) == 1:
-                    if theme != self.config['GENERAL SETTINGS']['theme'] or brightness != int(float(self.config['MONITOR SETTINGS'].get(monitors[0]))):
+                    if theme != self.config['GENERAL SETTINGS']['theme'] or brightness != int(float(self.config['MONITOR SETTINGS'].get(monitors[0], '100'))):
                         print("Settings not successfully loaded")
                     else:
                         self.scale_1.set(brightness)
@@ -174,7 +174,7 @@ class DesktopBrightnessApp:
     
                 # Settings for two and more monitors.
                 elif len(monitors) >= 2:
-                    if theme != self.config['GENERAL SETTINGS']['theme'] or brightness != int(float(self.config['MONITOR SETTINGS'].get(monitors[0]))) or monitor != self.config['MONITOR SETTINGS'].get('monitor'):
+                    if theme != self.config['GENERAL SETTINGS']['theme'] or brightness != int(float(self.config['MONITOR SETTINGS'].get(monitors[0], '100'))) or monitor != self.config['MONITOR SETTINGS'].get('monitor', monitors[0]):
                         print("Settings not successfully loaded")
                     else:
                         self.scale_1.set(brightness)
