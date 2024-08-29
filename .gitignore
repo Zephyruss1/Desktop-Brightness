@@ -9,3 +9,6 @@ dev.py
 
 # Output test file
 output/
+
+# Test file
+test.py
