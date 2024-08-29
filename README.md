@@ -3,7 +3,7 @@
 
 - Adjust your brightness with desktop brightness app.
 
-## 🥪 App Version
+## 🥪 App Version V1.1.0
 
 - Also you can download app version(.exe) from releases
 - A screenshot from app:
