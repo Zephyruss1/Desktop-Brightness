@@ -35,7 +35,7 @@ class DesktopBrightnessApp:
         self.root.geometry('%dx%d+%d+%d' % (500, 250, self.x, self.y))
         self.root.title("Desktop Brightness App")
 
-        get_monitor = sbc.list_monitors()
+        self.monitors = sbc.list_monitors()
         self.label_main_name = tb.Label(self.root, text="General", font=("Arial bold", 13))
         self.label_main_name.pack(pady=30)
 
@@ -84,7 +84,6 @@ class DesktopBrightnessApp:
 
     def get_monitors(self):
         global c_box_monitor
-        self.monitors = sbc.list_monitors()
         if len(self.monitors) >= 2:
             self.monitors.insert(0, "General")
             self.c_box_monitor = tb.Combobox(self.root, values=self.monitors, state="readonly", width=15)
@@ -101,7 +100,6 @@ class DesktopBrightnessApp:
                                 "No monitors are selected\nIf u want adjust brightness select a monitor")
 
     def set_brightness_for_selected_monitor(self, event):
-        self.monitors = sbc.list_monitors()
         # Configure label for selected value
         if hasattr(self, 'c_box_monitor'):
             selected_monitor = self.c_box_monitor.get()
