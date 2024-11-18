@@ -140,7 +140,7 @@ class DesktopBrightnessApp:
                 'theme': 'darkly',
             }
             self.config['MONITOR SETTINGS'] = {
-                'general': 100
+                'general': '100'
             }
             with open('options.ini', 'w') as configfile:
                 self.config.write(configfile)
