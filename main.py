@@ -91,6 +91,7 @@ class DesktopBrightnessApp:
             self.c_box_monitor.set(self.monitors[0])
             self.c_box_monitor.bind("<<ComboboxSelected>>", self.set_brightness_for_selected_monitor)
 
+
     # Checking for send notify if there not selected any monitor.
     def check_c_box(self):
         selected_monitor = c_box_monitor.current()
