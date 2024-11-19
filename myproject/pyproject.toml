@@ -18,13 +18,8 @@ mypy = "^1.13.0"
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.7.4"
 
-[tool.ruff.lint]
-# I: Isort
-# F: Flake8
-# S: Bandit
-select = ["I", "F", "S"]
-
-[tool.ruff.format]
+[tool.ruff]
+select = ["I", "F", "S"]  # Apply isort, Flake8, Bandit rules
 docstring-code-format = true
 docstring-code-line-length = 80
 
